@@ -13,6 +13,7 @@ session = Session()
 # Creating the table
 Base = declarative_base()
 
+
 class Customer(Base):
     __tablename__ = "customer"
 
@@ -21,22 +22,31 @@ class Customer(Base):
     family_name = Column(String)
 
     def __init__ (self, given_name, family_name):
-        self.given_name = given_name
-        self.family_name = family_name
+        self._given_name = given_name
+        self._family_name = family_name
 
-    
+    # getter and setter for given_name()
+    @property
     def given_name(self):
-        return self.given_name
+        return self._given_name
 
+    def given_name(self, value):
+        self._given_name = value
+
+    # getter and setter for family_name()
+    @property
     def family_name(self):
-        return self.family_name
+        return self._family_name
 
+    def family_name(self, value):
+        self._family_name = value
+
+    # getter for full_name()
+    @property
     def full_name(self):
         return f'{self._given_name}  {self._family_name}'
 
     @classmethod
     def all(cls):
         return session.query(cls).all()
-
-        
 
