@@ -46,6 +46,7 @@ class Customer(Base):
     def full_name(self):
         return f'{self._given_name}  {self._family_name}'
 
+    # returns **all** of the customer instances
     @classmethod
     def all(cls):
         return session.query(cls).all()
