@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import relationship, sessionmaker
 
 # creating the engine
 engine = create_engine('sqlite:///restaurant.db')
@@ -18,6 +18,9 @@ class Restaurant(Base):
 
     restaurant_id = Column(Integer, primary_key=True)
     name = Column(String)
+
+    reviews = relationship('Review', back_populates='restaurants')
+    customers = relationship('Customer', secondary='reviews', back_populates='restaurants')
 
     def __init__(self, name):
         self._name = name

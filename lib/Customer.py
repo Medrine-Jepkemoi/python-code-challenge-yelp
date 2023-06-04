@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, create_engine, func
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import relationship, sessionmaker
 
 from Review import Review
 
@@ -22,6 +22,10 @@ class Customer(Base):
     id = Column(Integer, primary_key=True)
     given_name = Column(String)
     family_name = Column(String)
+
+    # Establishing relationships
+    reviews = relationship('Review', back_populates='customers')
+    restaurants = relationship('Restaurant', secondary='reviews', back_populates='customers')
 
     def __init__ (self, given_name, family_name):
         self._given_name = given_name
