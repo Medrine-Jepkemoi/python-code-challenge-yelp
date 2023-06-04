@@ -26,3 +26,15 @@ class Restaurant(Base):
     @property
     def name(self):
         return self._name
+
+    # getter for reviews()
+    @property
+    def reviews(self):
+        return self.reviews
+    
+    # Returns a **unique** list of all customers who have reviewed a particular restaurant.
+    def customers(self):
+        unique_customer_rev = set()
+        for review in self.reviews:
+            unique_customer_rev.add(review.customer)
+        return list(unique_customer_rev)
