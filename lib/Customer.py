@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from Review import Review
+
 # creating the engine
 engine = create_engine('sqlite:///customer.db')
 
@@ -50,4 +52,17 @@ class Customer(Base):
     @classmethod
     def all(cls):
         return session.query(cls).all()
+
+    # returns a list of all reviews for that restaurant
+    def restaurants(self):
+        unique_restaurant = set()
+        for review in self.reviews:
+            unique_restaurant.add(review.restaurant)
+        return list(unique_restaurant)
+
+    # given a **restaurant object** and a star rating (as an integer), creates a new review and associates it with that customer and restaurant
+    def add_review(self, restaurant, rating):
+        new_review = Review(self, restaurant, rating)
+        session.add(new_review)
+        session.commit()
 
