@@ -14,7 +14,7 @@ session = Session()
 Base = declarative_base()
 
 class Review(Base):
-    __tabelname__ = "review"
+    __tabelname__ = "reviews"
 
     review_id = Column(Integer, primary_key=True)
     customer_id = Column(Integer)

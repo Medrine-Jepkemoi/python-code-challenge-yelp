@@ -14,7 +14,7 @@ session = Session()
 Base = declarative_base()
 
 class Restaurant(Base):
-    __tabelname__ = "restaurant"
+    __tabelname__ = "restaurants"
 
     restaurant_id = Column(Integer, primary_key=True)
     name = Column(String)

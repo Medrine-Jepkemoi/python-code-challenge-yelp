@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, String, create_engine, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -17,7 +17,7 @@ Base = declarative_base()
 
 
 class Customer(Base):
-    __tablename__ = "customer"
+    __tablename__ = "customers"
 
     id = Column(Integer, primary_key=True)
     given_name = Column(String)
@@ -65,4 +65,21 @@ class Customer(Base):
         new_review = Review(self, restaurant, rating)
         session.add(new_review)
         session.commit()
+
+    
+    # Returns the total number of reviews that a customer has authored
+    def num_reviews(self):
+        return session.query(func.count(Review.id)).filter(Review.customer_id == self.id).scalar()
+    
+    # Given a string of a **full name**, returns the **first customer** whose full name matches
+    @classmethod
+    def find_by_name(cls, name):
+        return session.query(cls).filter(func.concat(cls.given_name, ' ', cls.family_name) == name).first()
+    
+    # Given a string of a given name, returns an **list** containing all customers with that given name
+    @classmethod
+    def find_all_by_given_name(cls, name):
+        return session.query(cls).filter(cls.given_name == name).all()
+
+    
 
