@@ -31,7 +31,17 @@ class Review(Base):
     def rating(self):
         return self._rating
 
+    # getter for customer()
+    @property
+    def customer(self):
+        return self._customer
+
+    # getter for restaurant()
+    @property
+    def restaurant(self):
+        return self._restaurant
+
     # returns all of the reviews
-     @classmethod
+    @classmethod
     def all(cls):
         return session.query(cls).all()
