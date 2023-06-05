@@ -21,6 +21,7 @@ class Review(Base):
     restaurant_id = Column(Integer, ForeignKey("restaurant_id"))
     rating = Column(Integer)
 
+    # Establishing relationships
     customer = relationship('Customer')
     restaurant = relationship('Restaurant')
 

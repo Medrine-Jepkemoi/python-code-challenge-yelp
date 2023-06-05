@@ -19,6 +19,7 @@ class Restaurant(Base):
     restaurant_id = Column(Integer, primary_key=True)
     name = Column(String)
 
+    # Establishing relationships
     reviews = relationship('Review', back_populates='restaurants')
     customers = relationship('Customer', secondary='reviews', back_populates='restaurants')
 
@@ -41,3 +42,12 @@ class Restaurant(Base):
         for review in self.reviews:
             unique_customer_rev.add(review.customer)
         return list(unique_customer_rev)
+
+    # returns the average star rating for a restaurant based on its reviews
+    def average_star_rating(self):
+        total_ratings = sum(review.rating for review in self.reviews)
+        num_reviews = len(self.reviews)
+        if num_reviews > 0:
+            return total_ratings / num_reviews
+        else:
+            return 0.0
