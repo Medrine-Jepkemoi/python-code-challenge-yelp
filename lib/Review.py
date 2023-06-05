@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
 # creating the engine
-engine = create_engine('sqlite:///review.db')
+engine = create_engine('sqlite:///restaurant.db')
 
 # Creating the session
 Session = sessionmaker(bind=engine)

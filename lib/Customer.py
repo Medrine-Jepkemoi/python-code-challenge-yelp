@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, sessionmaker
 from Review import Review
 
 # creating the engine
-engine = create_engine('sqlite:///customer.db')
+engine = create_engine('sqlite:///restaurant.db')
 
 # Creating the session
 Session = sessionmaker(bind=engine)
